@@ -1488,6 +1488,7 @@ items = {
 		'leather': {
 			'id': 334,
 			'category': 'Materials',
+			0: 'Leather'
 		},
 		'milk_bucket': {
 			'id': 335,
