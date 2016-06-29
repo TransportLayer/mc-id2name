@@ -2165,7 +2165,7 @@ def lookup(item, damage=0):
 		else:
 			result[0] = '[Unknown Name]'
 		if 'uses' in items[mod][item]:
-			result[1] = '{:.1%}'.format((items[mod][item]['uses'] - damage) / items[mod][item]['uses'])
+			result[1] = '{:.1%}'.format((items[mod][item]['uses'] - damage) / float(items[mod][item]['uses']))
 		if 'armor' in items[mod][item]:
 			result[2] = items[mod][item]['armor']
 		if 'toughness' in items[mod][item]:
@@ -2187,7 +2187,7 @@ def lookupNumeric(itemNumeric, damage=0):
 				else:
 					result[0] = '[Unknown Name]'
 				if 'uses' in items[mod][item]:
-					result[1] = '{:.1%}'.format((items[mod][item]['uses'] - damage) / items[mod][item]['uses'])
+					result[1] = '{:.1%}'.format((items[mod][item]['uses'] - damage) / float(items[mod][item]['uses']))
 				if 'armor' in items[mod][item]:
 					result[2] = items[mod][item]['armor']
 				if 'toughness' in items[mod][item]:
