@@ -2310,7 +2310,7 @@ def intToRoman(number):
 		romanString += romanTuple[1] * div
 	return romanString
 
-def lookup(item, damage=0):
+def lookupItem(item, damage=0):
 	mod, item = item.split(':')
 	result = [None, None, None, None]
 	if mod in items and item in items[mod]:
@@ -2330,7 +2330,7 @@ def lookup(item, damage=0):
 		result[0] = '[Item Not Found]'
 	return result
 
-def lookupNumeric(itemNumeric, damage=0):
+def lookupNumericItem(itemNumeric, damage=0):
 	print('WARNING: Item numeric IDs are deprecated. Please use text IDs.')
 	result = [None, None, None, None]
 	for mod in items.values():
