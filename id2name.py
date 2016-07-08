@@ -2345,7 +2345,7 @@ def lookupNumericEnchant(enchantNumeric):
 	result = [None]
 	for mod in enchantments.values():
 		for enchant in mod.values():
-			if type(enchant) is dict and enchantNumeric in enchant.values():
+			if type(enchant) is dict and enchant['id'] == enchantNumeric:
 				if 'name' in enchant:
 					result[0] = enchant['name']
 				else:
