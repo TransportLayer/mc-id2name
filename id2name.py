@@ -2308,23 +2308,26 @@ def lookup(item, damage=0):
 
 def lookupNumeric(itemNumeric, damage=0):
 	print('WARNING: Item numeric IDs are deprecated. Please use text IDs.')
+	result = [None, None, None, None]
 	for mod in items.values():
-		result = [None, None, None, None]
 		for item in mod.values():
-			if type(item) is dict and itemNumeric in item.values():
+			if type(item) is dict and item['id'] == itemNumeric:
 				if damage in item:
 					result[0] = item[damage]
 				elif 'name' in item:
 					result[0] = item['name']
 				else:
 					result[0] = '[Unknown Name]'
-				if 'uses' in items[mod][item]:
-					result[1] = '{:.1%}'.format((items[mod][item]['uses'] - damage) / float(items[mod][item]['uses']))
-				if 'armor' in items[mod][item]:
-					result[2] = items[mod][item]['armor']
-				if 'toughness' in items[mod][item]:
-					result[3] = items[mod][item]['toughness']
+				if 'uses' in item:
+					result[1] = '{:.1%}'.format((item['uses'] - damage) / float(item['uses']))
+				if 'armor' in item:
+					result[2] = item['armor']
+				if 'toughness' in item:
+					result[3] = item['toughness']
+				break
+	if not result[0]:
 		result[0] = '[Item Not Found]'
+	return result
 
 def lookupEnchant(enchant):
 	mod, enchant = enchant.split(':')
