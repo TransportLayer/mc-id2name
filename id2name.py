@@ -2286,6 +2286,30 @@ enchantments = {
 	}
 }
 
+# Roman Numeral Conversion
+# Inspired by: https://stackoverflow.com/a/28777781
+romanNumerals = (
+	(1000, 'M'),
+	(900, 'CM'),
+	(500, 'D'),
+	(400, 'CD'),
+	(100, 'C'),
+	(90, 'XC'),
+	(50, 'L'),
+	(40, 'XL'),
+	(10, 'X'),
+	(9, 'IX'),
+	(5, 'V'),
+	(4, 'IV'),
+	(1, 'I')
+)
+def intToRoman(number):
+	romanString = ''
+	for romanTuple in romanNumerals:
+		div, number = divmod(number, romanTuple[0])
+		romanString += romanTuple[1] * div
+	return romanString
+
 def lookup(item, damage=0):
 	mod, item = item.split(':')
 	result = [None, None, None, None]
@@ -2329,9 +2353,9 @@ def lookupNumeric(itemNumeric, damage=0):
 		result[0] = '[Item Not Found]'
 	return result
 
-def lookupEnchant(enchant):
+def lookupEnchant(enchant, level=None):
 	mod, enchant = enchant.split(':')
-	result = [None]
+	result = [None, None]
 	if mod in enchantments and enchant in enchantments[mod]:
 		if 'name' in enchantments[mod][enchant]:
 			result[0] = enchantments[mod][enchant]['name']
@@ -2339,10 +2363,12 @@ def lookupEnchant(enchant):
 			result[0] = '[Unknown Name]'
 	else:
 		result[0] = '[Enchantment Not Found]'
+	if level:
+		result[1] = intToRoman(level)
 	return result
 
-def lookupNumericEnchant(enchantNumeric):
-	result = [None]
+def lookupNumericEnchant(enchantNumeric, level=None):
+	result = [None, None]
 	for mod in enchantments.values():
 		for enchant in mod.values():
 			if type(enchant) is dict and enchant['id'] == enchantNumeric:
@@ -2353,4 +2379,6 @@ def lookupNumericEnchant(enchantNumeric):
 				break
 	if not result[0]:
 		result[0] = '[Enchantment Not Found]'
+	if level:
+		result[1] = intToRoman(level)
 	return result
