@@ -2154,6 +2154,138 @@ items = {
 	}
 }
 
+enchantments = {
+	'minecraft': {
+		'__VERSION__': 1.10,
+		'__LANGUAGE__': 'en_US',
+		# Begin Armour Block.
+		'protection': {
+			'id': 0,
+			'name': 'Protection'
+		},
+		'fire_protection': {
+			'id': 1,
+			'name': 'Fire Protection'
+		},
+		'feather_falling': {
+			'id': 2,
+			'name': 'Feather Falling'
+		},
+		'blast_protection': {
+			'id': 3,
+			'name': 'Blast Protection'
+		},
+		'projectile_protection': {
+			'id': 4,
+			'name': 'Projectile Protection'
+		},
+		'respiration': {
+			'id': 5,
+			'name': 'Respiration'
+		},
+		'aqua_affinity': {
+			'id': 6,
+			'name': 'Aqua Affinity'
+		},
+		'thorns': {
+			'id': 7,
+			'name': 'Thorns'
+		},
+		'depth_strider': {
+			'id': 8,
+			'name': 'Depth Strider'
+		},
+		'frost_walker': {
+			'id': 9,
+			'name': 'Frost Walker'
+		},
+		# End Armour Block.
+
+		# Begin Sword Block.
+		'sharpness': {
+			'id': 16,
+			'name': 'Sharpness'
+		},
+		'smite': {
+			'id': 17,
+			'name': 'Smite'
+		},
+		'bane_of_arthropods': {
+			'id': 18,
+			'name': 'Bane of Arthropods'
+		},
+		'knockback': {
+			'id': 19,
+			'name': 'Knockback'
+		},
+		'fire_aspect': {
+			'id': 20,
+			'name': 'Fire Aspect'
+		},
+		'looting': {
+			'id': 21,
+			'name': 'Looting'
+		},
+		# End Sword Block.
+
+		# Begin Tools Block.
+		'efficiency': {
+			'id': 32,
+			'name': 'Efficiency'
+		},
+		'silk_touch': {
+			'id': 33,
+			'name': 'Silk Touch'
+		},
+		'unbreaking': {
+			'id': 34,
+			'name': 'Unbreaking'
+		},
+		'fortune': {
+			'id': 35,
+			'name': 'Fortune'
+		},
+		# End Tools Block.
+
+		# Begin Bows Block.
+		'power': {
+			'id': 48,
+			'name': 'Power'
+		},
+		'punch': {
+			'id': 49,
+			'name': 'Punch'
+		},
+		'flame': {
+			'id': 50,
+			'name': 'Flame'
+		},
+		'infinity': {
+			'id': 51,
+			'name': 'Flame'
+		},
+		# End Bows Block.
+
+		# Begin Fishing Rods Block.
+		'luck_of_the_sea': {
+			'id': 61,
+			'name': 'Luck of the Sea'
+		},
+		'lure': {
+			'id': 62,
+			'name': 'Lure'
+		},
+		# End Fishing Rods Block.
+
+		# Begin Misc Block.
+		'mending': {
+			'id': 70,
+			'name': 'Mending'
+		}
+		# End Misc Block.
+	}
+}
+
 def lookup(item, damage=0):
 	mod, item = item.split(':')
 	result = [None, None, None, None]
@@ -2193,3 +2325,29 @@ def lookupNumeric(itemNumeric, damage=0):
 				if 'toughness' in items[mod][item]:
 					result[3] = items[mod][item]['toughness']
 		result[0] = '[Item Not Found]'
+
+def lookupEnchant(enchant):
+	mod, enchant = enchant.split(':')
+	result = [None]
+	if mod in enchantments and enchant in enchantments[mod]:
+		if 'name' in enchantments[mod][enchant]:
+			result[0] = enchantments[mod][enchant]['name']
+		else:
+			result[0] = '[Unknown Name]'
+	else:
+		result[0] = '[Enchantment Not Found]'
+	return result
+
+def lookupNumericEnchant(enchantNumeric):
+	result = [None]
+	for mod in enchantments.values():
+		for enchant in mod.values():
+			if type(enchant) is dict and enchantNumeric in enchant.values():
+				if 'name' in enchant:
+					result[0] = enchant['name']
+				else:
+					result[0] = '[Unknown Name]'
+				break
+	if not result[0]:
+		result[0] = '[Enchantment Not Found]'
+	return result
